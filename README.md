@@ -21,47 +21,6 @@ A local-first Oracle database workspace with a minimal interface. This version i
 
 No paid API is required. The history database is created automatically at `backend/anydb_history.sqlite3`.
 
-## Start on Windows
 
-### 1. Start Oracle
 
-```bat
-docker start oracle26ai
-```
-
-### 2. Start the backend in a Command Prompt
-
-```bat
-cd C:\Users\rahul\Downloads\CIDB-starter\change-impact-db\backend
-.venv\Scripts\activate
-python -m pip install -r requirements.txt
-python -m uvicorn app.main:app --reload
-```
-
-If you do not have a `.venv` folder, create it first with `py -m venv .venv`, then activate it. If your environment is already active, do not activate it again.
-
-Backend: `http://127.0.0.1:8000`  
-API docs: `http://127.0.0.1:8000/docs`
-
-### 3. Start the frontend in a second Command Prompt
-
-```bat
-cd C:\Users\rahul\Downloads\CIDB-starter\change-impact-db\frontend
-npm install
-npm run dev
-```
-
-Open the local URL printed by Vite, usually `http://localhost:5173`.
-
-## Connect to your local HR schema
-
-Use host `localhost`, port `1521`, service `FREEPDB1`, username `HR`, and the password you set when installing the sample HR schema. Metadata discovery is for the schema owned by the connected Oracle user; connect as the schema owner for the expected results.
-
-## Important safety notes
-
-- The SQL workspace is intended for **local development**, not direct exposure to the public internet. Do not expose this backend or Oracle port publicly.
-- `INSERT`, `UPDATE`, and `DELETE` are committed immediately after successful execution. The UI asks for confirmation, but that is not a substitute for checking the SQL and maintaining backups.
-- `DROP`, `ALTER`, `TRUNCATE`, PL/SQL blocks, and multi-statement submissions are disabled in the SQL workspace. Impact analysis is a separate, non-executing operation.
-- Connect using a least-privilege Oracle account. A read-only account is safer for schema analysis; DML requires appropriate write privileges.
-- The current connection is held in backend memory for this local single-user prototype. Restarting the backend clears the active connection. Do not use this design for a multi-user or public deployment without authentication, per-user connection isolation, secret handling, and authorization controls.
-- Impact analysis is an estimate based on metadata visible to the connected user. It cannot guarantee that a proposed schema change is safe, especially when external application code or dynamic SQL is involved.
+.
